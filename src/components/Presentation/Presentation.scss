@@ -2,9 +2,14 @@
 
 .presentation {
   padding: 1rem;
+  padding-bottom: 0;
   text-align: center;
 
   h4 {
     color: $blue;
+  }
+
+  p {
+    margin-bottom: 0;
   }
 }

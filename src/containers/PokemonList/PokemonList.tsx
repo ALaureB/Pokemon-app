@@ -7,10 +7,12 @@ import { PokemonShort } from "../../models/PokemonShort";
 import "./PokemonList.scss";
 import { Row, Col, Spinner } from "react-bootstrap";
 
+import PokemonListItem from "../../components/PokemonListItem/PokemonListItem";
+
 const PokemonList: React.FC = () => {
   const [pokemons, setPokemons] = useState<PokemonShort[]>([]);
   const [pokemonListUrl, setPokemonListUrl] = useState(
-    pokemonListQueryBuilder(20, 0)
+    pokemonListQueryBuilder(50, 0)
   );
   const [dataLoading, setDataLoading] = useState(true);
 
@@ -28,6 +30,12 @@ const PokemonList: React.FC = () => {
             pokemons.push(result);
           });
 
+          pokemons = pokemons.sort(function(a, b){
+            if(a.name < b.name) { return -1; }
+            if(a.name > b.name) { return 1; }
+            return 0;
+        })
+
           setPokemons(pokemons);
         }
       } catch (e) {
@@ -40,7 +48,7 @@ const PokemonList: React.FC = () => {
   }, [pokemonListUrl]);
 
   return (
-    <Row>
+    <Row className="no-gutters">
       <Col xs={12} className="pokemon-list">
         {dataLoading && (
           <Spinner
@@ -54,10 +62,8 @@ const PokemonList: React.FC = () => {
         )}
 
         {pokemons.length > 0 &&
-          pokemons.map((pokemon) => (
-            <div key={pokemon.name}>
-              <p>{pokemon.name}</p>
-            </div>
+          pokemons.map((pokemon, index) => (
+            <PokemonListItem pokemonName={pokemon.name} key={index} />
           ))}
       </Col>
     </Row>
