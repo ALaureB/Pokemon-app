@@ -8,7 +8,9 @@ const Presentation: React.FC = () => {
     <Row className="presentation">
       <Col xs={12}>
         <h4>Bienvenue sur Pokemon App !</h4>
-        <p>Retrouvez-ici les informations sur tous vos petits compagnons favoris.</p>
+        <p>
+          Retrouvez-ici les informations sur tous vos petits compagnons favoris.
+        </p>
       </Col>
     </Row>
   );
