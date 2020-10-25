@@ -16,13 +16,12 @@ Ce projet recense les mignons mais non pas moins malicieux Pokemon. Vous pouvez 
 
 Le projet a été créé avec :
 
-- React(version 16.13.1) & Typescript (version 3.7.2), using [Create React App](https://github.com/facebook/create-react-app).
+- React(version 17.0.1) & Typescript (version 4.0.3), à travers [Create React App](https://github.com/facebook/create-react-app).
+- React router dom (version 5.2.0) et Reac dom (version 17.0.1).
 - Node Sass (version 4.14.1).
-- Bootstrap (version 4.5.2) & react-bootstrap (version 1.3.0).
-- i18next (version 19.8.0).
-- i18next (version 19.8.0).
-- Moment (version 2.29.0).
+- Bootstrap (version 4.5.3) & react-bootstrap (version 1.4.0).
 - React-datepicker (version 3.2.2).
+- Axios (version 0.21.1).
 
 ## Setup
 

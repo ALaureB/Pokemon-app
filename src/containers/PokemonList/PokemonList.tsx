@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosRequest } from "../../utils/AxiosUtils";
 import { pokemonListQueryBuilder } from "../../utils/AxiosUtils";
+import { useHistory } from 'react-router-dom';
 
 import { PokemonShort } from "../../models/PokemonShort";
 
@@ -17,10 +18,15 @@ const PokemonList: React.FC = () => {
     pokemonListQueryBuilder(50, offset)
   );
   const [dataLoading, setDataLoading] = useState(true);
+  const history = useHistory();
 
   function changeOffset(offset: number) {
     setOffset(offset);
     setPokemonListUrl(pokemonListQueryBuilder(50, offset));
+  }
+
+  function navigateToPokemon(pokemonName: string) {
+    return history.push(`/pokemon/${pokemonName}`);
   }
 
   useEffect(() => {
@@ -62,7 +68,7 @@ const PokemonList: React.FC = () => {
       <Col xs={12} className="pokemon-list">
         {pokemons.length > 0 &&
           pokemons.map((pokemon, index) => (
-            <PokemonListItem pokemonName={pokemon.name} key={index} />
+            <PokemonListItem pokemonName={pokemon.name} key={index} navigateToPokemon={navigateToPokemon} />
           ))}
       </Col>
 

@@ -5,11 +5,19 @@ import { Card } from "react-bootstrap";
 
 interface IPokemonListItemProps {
   pokemonName: string;
+  navigateToPokemon: NavigateToPokemon;
 }
 
-const PokemonListItem: React.FC<IPokemonListItemProps> = ({ pokemonName }) => {
+type NavigateToPokemon = (pokemonName: string) => void;
+
+const PokemonListItem: React.FC<IPokemonListItemProps> = ({ pokemonName, navigateToPokemon }) => {
   return (
-    <Card className="pokemon-list-item">
+    <Card
+      className="pokemon-list-item"
+      onClick={() => {
+        navigateToPokemon(pokemonName);
+      }}
+    >
       <Card.Body>
         <h5>{pokemonName}</h5>
       </Card.Body>

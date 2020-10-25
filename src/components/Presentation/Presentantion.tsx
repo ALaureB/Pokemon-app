@@ -9,7 +9,7 @@ const Presentation: React.FC = () => {
       <Col xs={12}>
         <h4>Bienvenue sur Pokemon App !</h4>
         <p>
-          Retrouvez-ici les informations sur tous vos petits compagnons favoris.
+          Retrouvez-ici les informations sur tous vos petits compagnons favoris. Il suffit de cliquer sur le nom d'un des Pokemon pour accéder à sa fiche.
         </p>
       </Col>
     </Row>
