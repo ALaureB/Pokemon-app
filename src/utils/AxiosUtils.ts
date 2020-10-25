@@ -10,3 +10,8 @@ export const axiosRequest = axios.create({
 export function pokemonListQueryBuilder(limit: number, offset: number): string {
   return `pokemon/?limit=${limit}&offset=${offset}`;
 }
+
+export function pokemonDetailQueryBuilder(pokemonName: string): string {
+  console.log(pokemonName);
+  return `pokemon/${pokemonName}`;
+}

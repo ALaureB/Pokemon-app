@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
 import Presentation from "../../components/Presentation/Presentantion";
 import PokemonList from "../PokemonList/PokemonList";
+import PokemonPage from "../PokemonPage/PokemonPage";
 
 function App() {
   return (
