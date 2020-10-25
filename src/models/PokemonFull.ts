@@ -16,7 +16,7 @@ export class PokemonFull {
     is_default,
     order,
     weight,
-    abilities
+    abilities,
   }: {
     id: number;
     name: string;
