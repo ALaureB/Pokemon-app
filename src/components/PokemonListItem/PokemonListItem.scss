@@ -3,13 +3,12 @@
 .pokemon-list-item {
   border-radius: 0;
   border-color: lighten($color: $blue, $amount: 25%);
+  cursor: pointer !important;
   height: auto;
   margin: 1rem;
   width: 14rem;
 
-  h5 {
-    color: $blue;
-    font-weight: 500;
-    margin-bottom: 0;
+  &:hover {
+    background-color: lighten($color: $blue, $amount: 25%);
   }
 }

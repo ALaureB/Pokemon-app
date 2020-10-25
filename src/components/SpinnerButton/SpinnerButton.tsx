@@ -20,9 +20,8 @@ const SpinnerButton: React.FC<ISpinnerButtonProps> = ({
   const [offset, setOffset] = useState(currentOffset);
 
   useEffect(() => {
-    updateOffset(offset)
+    updateOffset(offset);
   }, [offset]);
-
 
   return (
     <Button

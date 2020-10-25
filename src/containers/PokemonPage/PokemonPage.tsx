@@ -8,6 +8,8 @@ import { PokemonFull } from "../../models/PokemonFull";
 
 import "./PokemonPage.scss";
 
+import PokemonItem from "../../components/PokemonItem/PokemonItem";
+
 type TParams = { name: string };
 
 const PokemonPage: React.FC<RouteComponentProps<TParams>> = ({ match }) => {
@@ -33,14 +35,7 @@ const PokemonPage: React.FC<RouteComponentProps<TParams>> = ({ match }) => {
   }, [pokemonUrl]);
 
   return (
-    <div>
-      {currentPokemon && (
-        <div>
-          <div>{currentPokemon.name}</div>
-          <div>{currentPokemon.weight}</div>
-        </div>
-      )}
-    </div>
+    <div>{currentPokemon && <PokemonItem pokemon={currentPokemon} />}</div>
   );
 };
 

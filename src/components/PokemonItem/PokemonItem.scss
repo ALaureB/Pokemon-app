@@ -1,0 +1,17 @@
+@import "../../containers/App/App.scss";
+
+.pokemon-item {
+  text-align: center;
+  border: none;
+
+  .card-img-top {
+    height: auto;
+    padding: 1rem;
+    width: 20rem;
+  }
+
+  label,
+  h5 {
+    font-weight: bold;
+  }
+}

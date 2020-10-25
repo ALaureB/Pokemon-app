@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { axiosRequest } from "../../utils/AxiosUtils";
 import { pokemonListQueryBuilder } from "../../utils/AxiosUtils";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 import { PokemonShort } from "../../models/PokemonShort";
 
@@ -68,7 +68,11 @@ const PokemonList: React.FC = () => {
       <Col xs={12} className="pokemon-list">
         {pokemons.length > 0 &&
           pokemons.map((pokemon, index) => (
-            <PokemonListItem pokemonName={pokemon.name} key={index} navigateToPokemon={navigateToPokemon} />
+            <PokemonListItem
+              pokemon={pokemon}
+              key={index}
+              navigateToPokemon={navigateToPokemon}
+            />
           ))}
       </Col>
 
