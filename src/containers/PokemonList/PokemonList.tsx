@@ -8,17 +8,23 @@ import { PokemonShort } from "../../models/PokemonShort";
 import "./PokemonList.scss";
 import { Row, Col } from "react-bootstrap";
 
+import Pagination from "../../components/Pagination/Pagination";
 import PokemonListItem from "../../components/PokemonListItem/PokemonListItem";
 import SpinnerButton from "../../components/SpinnerButton/SpinnerButton";
 
 const PokemonList: React.FC = () => {
   const [pokemons, setPokemons] = useState<PokemonShort[]>([]);
   const [offset, setOffset] = useState<number>(0);
-  const [pokemonListUrl, setPokemonListUrl] = useState(
+  const [pokemonListUrl, setPokemonListUrl] = useState<string>(
     pokemonListQueryBuilder(50, offset)
   );
-  const [dataLoading, setDataLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [numberOfPages, setNumberOfPages] = useState<number>(0);
+
   const history = useHistory();
+
+  const numberOfItemsByPage = 50;
 
   function changeOffset(offset: number) {
     setOffset(offset);
@@ -27,6 +33,14 @@ const PokemonList: React.FC = () => {
 
   function navigateToPokemon(pokemonName: string) {
     return history.push(`/pokemon/${pokemonName}`);
+  }
+
+  function updateNumberOfPages(): number {
+    return Math.ceil(pokemons.length / numberOfItemsByPage);
+  }
+
+  function updateCurrentPage(currentPage: number) {
+    setCurrentPage(currentPage);
   }
 
   useEffect(() => {
@@ -63,21 +77,22 @@ const PokemonList: React.FC = () => {
     fetchData();
   }, [pokemonListUrl]);
 
+  useEffect(() => {
+    setNumberOfPages(updateNumberOfPages());
+  }, [pokemons]);
+
   return (
     <Row className="no-gutters">
-      <Col xs={12} className="pokemon-list">
-        {pokemons.length > 0 &&
-          pokemons.map((pokemon, index) => (
-            <PokemonListItem
-              pokemon={pokemon}
-              key={index}
-              navigateToPokemon={navigateToPokemon}
-            />
-          ))}
+      <Col xs={12} md={6}>
+        <Pagination
+          currentPage={currentPage}
+          numberOfPages={numberOfPages}
+          updateCurrentPage={updateCurrentPage}
+        />
       </Col>
 
       {pokemons.length > 0 && (
-        <Col xs={12} className="mb-5 mt-4 text-center">
+        <Col xs={12} md={6}>
           <SpinnerButton
             shouldShowSpinner={dataLoading}
             currentOffset={offset}
@@ -85,6 +100,22 @@ const PokemonList: React.FC = () => {
           />
         </Col>
       )}
+
+      <Col xs={12} className="pokemon-list">
+        {pokemons.length > 0 &&
+          pokemons
+            .slice(
+              (currentPage - 1) * numberOfItemsByPage,
+              (currentPage - 1) * numberOfItemsByPage + numberOfItemsByPage
+            )
+            .map((pokemon, index) => (
+              <PokemonListItem
+                pokemon={pokemon}
+                key={index}
+                navigateToPokemon={navigateToPokemon}
+              />
+            ))}
+      </Col>
     </Row>
   );
 };

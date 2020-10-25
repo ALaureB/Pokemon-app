@@ -1,0 +1,14 @@
+@import "../../containers/App/App.scss";
+
+.pokemon-list-item {
+  border-radius: 0;
+  border-color: lighten($color: $blue, $amount: 25%);
+  cursor: pointer !important;
+  height: auto;
+  margin: 1rem;
+  width: 14rem;
+
+  &:hover {
+    background-color: lighten($color: $blue, $amount: 25%);
+  }
+}
