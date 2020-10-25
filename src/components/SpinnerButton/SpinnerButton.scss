@@ -1,0 +1,15 @@
+@import "../../containers/App/App.scss";
+
+.btn-spinner {
+  background-color: $yellow;
+  border-radius: 0;
+  border-color: lighten($color: $yellow, $amount: 15%);
+  font-weight: bold;;
+  padding: .5rem 1rem;
+
+  &:focus,
+  &:hover {
+    background-color: lighten($color: $yellow, $amount: 15%);
+    border-color: lighten($color: $yellow, $amount: 15%);
+  }
+}

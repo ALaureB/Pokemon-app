@@ -5,16 +5,23 @@ import { pokemonListQueryBuilder } from "../../utils/AxiosUtils";
 import { PokemonShort } from "../../models/PokemonShort";
 
 import "./PokemonList.scss";
-import { Row, Col, Spinner } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 import PokemonListItem from "../../components/PokemonListItem/PokemonListItem";
+import SpinnerButton from "../../components/SpinnerButton/SpinnerButton";
 
 const PokemonList: React.FC = () => {
   const [pokemons, setPokemons] = useState<PokemonShort[]>([]);
+  const [offset, setOffset] = useState<number>(0);
   const [pokemonListUrl, setPokemonListUrl] = useState(
-    pokemonListQueryBuilder(50, 0)
+    pokemonListQueryBuilder(50, offset)
   );
   const [dataLoading, setDataLoading] = useState(true);
+
+  function changeOffset(offset: number) {
+    setOffset(offset);
+    setPokemonListUrl(pokemonListQueryBuilder(50, offset));
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -25,47 +32,49 @@ const PokemonList: React.FC = () => {
           console.log(response);
           setDataLoading(false);
 
-          let pokemons: PokemonShort[] = [];
+          let pokemonsList: PokemonShort[] = [];
           response.data.results.forEach((result: any) => {
-            pokemons.push(result);
+            pokemonsList.push(result);
           });
 
-          pokemons = pokemons.sort(function(a, b){
-            if(a.name < b.name) { return -1; }
-            if(a.name > b.name) { return 1; }
+          pokemonsList = pokemonsList.sort(function (a, b) {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
             return 0;
-        })
+          });
 
-          setPokemons(pokemons);
+          setPokemons((prev) => [...prev, ...pokemonsList]);
         }
       } catch (e) {
         console.log(e);
         setDataLoading(false);
       }
     }
-
     fetchData();
   }, [pokemonListUrl]);
 
   return (
     <Row className="no-gutters">
       <Col xs={12} className="pokemon-list">
-        {dataLoading && (
-          <Spinner
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-            className="ml-2"
-          />
-        )}
-
         {pokemons.length > 0 &&
           pokemons.map((pokemon, index) => (
             <PokemonListItem pokemonName={pokemon.name} key={index} />
           ))}
       </Col>
+
+      {pokemons.length > 0 && (
+        <Col xs={12} className="mb-5 mt-4 text-center">
+          <SpinnerButton
+            shouldShowSpinner={dataLoading}
+            currentOffset={offset}
+            updateOffset={changeOffset}
+          />
+        </Col>
+      )}
     </Row>
   );
 };
