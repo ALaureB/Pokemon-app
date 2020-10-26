@@ -4,11 +4,14 @@
   background-color: $yellow !important;
   border-color: lighten($color: $yellow, $amount: 15%) !important;
   font-weight: bold !important;
-  padding: 1rem !important;
 
   &:focus,
   &:hover {
     background-color: lighten($color: $yellow, $amount: 15%) !important;
     border-color: lighten($color: $yellow, $amount: 15%) !important;
+  }
+
+  @include sm {
+    margin-bottom: 1rem;
   }
 }

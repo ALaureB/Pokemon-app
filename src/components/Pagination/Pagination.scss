@@ -1,14 +1,37 @@
 @import "../../containers/App/App.scss";
 
-.pokemon-list-item {
-  border-radius: 0;
-  border-color: lighten($color: $blue, $amount: 25%);
-  cursor: pointer !important;
-  height: auto;
-  margin: 1rem;
-  width: 14rem;
+.pagination-container {
+  .input-group {
+    justify-content: center;
 
-  &:hover {
-    background-color: lighten($color: $blue, $amount: 25%);
+    .btn {
+      background-color: $yellow !important;
+      border-color: lighten($color: $yellow, $amount: 15%) !important;
+      color: $white;
+      font-weight: bold !important;
+    }
+
+    button:disabled,
+    button[disabled] {
+      cursor: not-allowed;
+    }
+
+    input {
+      width: 3rem;
+      border: 1px solid lighten($color: $yellow, $amount: 15%) !important;
+      border-right: none !important;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      border: 1px solid lighten($color: $yellow, $amount: 15%) !important;
+      border-left: none !important;
+      padding-right: 1rem;
+    }
+
+    @include sm {
+      margin-bottom: 1rem;
+    }
   }
 }

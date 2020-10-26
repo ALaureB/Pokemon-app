@@ -92,7 +92,7 @@ const PokemonList: React.FC = () => {
       </Col>
 
       {pokemons.length > 0 && (
-        <Col xs={12} md={6}>
+        <Col xs={12} md={6} className="text-center">
           <SpinnerButton
             shouldShowSpinner={dataLoading}
             currentOffset={offset}
@@ -100,6 +100,10 @@ const PokemonList: React.FC = () => {
           />
         </Col>
       )}
+
+      <Col xs={12} className="text-center">
+        <span className="h5">{pokemons.length}</span> pokemons
+      </Col>
 
       <Col xs={12} className="pokemon-list">
         {pokemons.length > 0 &&
