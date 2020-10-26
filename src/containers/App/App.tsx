@@ -1,4 +1,5 @@
 import React from "react";
+import { AppProvider } from "../../store/context";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.scss";
@@ -12,21 +13,23 @@ import PokemonPage from "../PokemonPage/PokemonPage";
 
 function App() {
   return (
-    <Router>
-      <NavBar />
-      <Container fluid className="pokemon-app p-0"></Container>
+    <AppProvider>
+      <Router>
+        <NavBar />
+        <Container fluid className="pokemon-app p-0"></Container>
 
-      <Switch>
-        <Route path="/pokemon/:name">
-          <PokemonPage />
-        </Route>
-        <Route path="/">
-          <Header />
-          <Presentation />
-          <PokemonList />
-        </Route>
-      </Switch>
-    </Router>
+        <Switch>
+          <Route path="/pokemon/:name">
+            <PokemonPage />
+          </Route>
+          <Route path="/">
+            <Header />
+            <Presentation />
+            <PokemonList />
+          </Route>
+        </Switch>
+      </Router>
+    </AppProvider>
   );
 }
 

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../../store/context";
 import { axiosRequest } from "../../utils/AxiosUtils";
 import { pokemonListQueryBuilder } from "../../utils/AxiosUtils";
 import { useHistory } from "react-router-dom";
 
 import { PokemonShort } from "../../models/PokemonShort";
+import { Types } from "../../store/reducer";
 
 import "./PokemonList.scss";
 import { Row, Col } from "react-bootstrap";
@@ -13,7 +15,8 @@ import PokemonListItem from "../../components/PokemonListItem/PokemonListItem";
 import SpinnerButton from "../../components/SpinnerButton/SpinnerButton";
 
 const PokemonList: React.FC = () => {
-  const [pokemons, setPokemons] = useState<PokemonShort[]>([]);
+  const { state, dispatch } = useContext(AppContext);
+  
   const [offset, setOffset] = useState<number>(0);
   const [pokemonListUrl, setPokemonListUrl] = useState<string>(
     pokemonListQueryBuilder(50, offset)
@@ -36,7 +39,7 @@ const PokemonList: React.FC = () => {
   }
 
   function updateNumberOfPages(): number {
-    return Math.ceil(pokemons.length / numberOfItemsByPage);
+    return Math.ceil(state.pokemonsList.length / numberOfItemsByPage);
   }
 
   function updateCurrentPage(currentPage: number) {
@@ -49,7 +52,6 @@ const PokemonList: React.FC = () => {
         const response = await axiosRequest.get(pokemonListUrl);
 
         if (response.data && response.data.results.length > 0) {
-          console.log(response);
           setDataLoading(false);
 
           let pokemonsList: PokemonShort[] = [];
@@ -67,7 +69,10 @@ const PokemonList: React.FC = () => {
             return 0;
           });
 
-          setPokemons((prev) => [...prev, ...pokemonsList]);
+          dispatch({
+            type: Types.Update,
+            payload: pokemonsList
+          });
         }
       } catch (e) {
         console.log(e);
@@ -79,7 +84,7 @@ const PokemonList: React.FC = () => {
 
   useEffect(() => {
     setNumberOfPages(updateNumberOfPages());
-  }, [pokemons]);
+  }, [state.pokemonsList]);
 
   return (
     <Row className="no-gutters">
@@ -91,7 +96,7 @@ const PokemonList: React.FC = () => {
         />
       </Col>
 
-      {pokemons.length > 0 && (
+      {state.pokemonsList.length > 0 && (
         <Col xs={12} md={6} className="text-center">
           <SpinnerButton
             shouldShowSpinner={dataLoading}
@@ -102,12 +107,12 @@ const PokemonList: React.FC = () => {
       )}
 
       <Col xs={12} className="text-center">
-        <span className="h5">{pokemons.length}</span> pokemons
+        <span className="h5">{state.pokemonsList.length}</span> pokemons
       </Col>
 
       <Col xs={12} className="pokemon-list">
-        {pokemons.length > 0 &&
-          pokemons
+        {state.pokemonsList.length  > 0 &&
+          state.pokemonsList
             .slice(
               (currentPage - 1) * numberOfItemsByPage,
               (currentPage - 1) * numberOfItemsByPage + numberOfItemsByPage
