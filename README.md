@@ -20,7 +20,6 @@ Le projet a été créé avec :
 - React router dom (version 5.2.0) et Reac dom (version 17.0.1).
 - Node Sass (version 4.14.1).
 - Bootstrap (version 4.5.3) & react-bootstrap (version 1.4.0).
-- React-datepicker (version 3.2.2).
 - Axios (version 0.21.1).
 
 ## Setup
