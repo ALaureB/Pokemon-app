@@ -45,6 +45,7 @@ const Pagination: React.FC<IPaginationProps> = ({
           onChange={(e: React.FormEvent<HTMLInputElement>) => {
             updateCurrentPage(e.currentTarget.valueAsNumber);
           }}
+          min={1}
           max={numberOfPages}
           value={currentPage}
         />{" "}
@@ -52,7 +53,7 @@ const Pagination: React.FC<IPaginationProps> = ({
         <InputGroup.Append>
           <Button
             variant="outline-secondary"
-            disabled={currentPage === numberOfPages + 1}
+            disabled={currentPage === numberOfPages}
             onClick={() => {
               updateCurrentPage(numberOfPages);
             }}
